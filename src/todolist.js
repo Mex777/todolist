@@ -1,4 +1,3 @@
-import './todolist.css';
 
 const task = (name, desc, state) => {
   let title = name;

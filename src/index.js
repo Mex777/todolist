@@ -1,4 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import './todolist.css';
 import {task, toDoList} from './todolist';
 import {todoList} from './todolist-dom';
@@ -17,5 +18,6 @@ defaultList.addItem(item);
 
 const div = document.createElement('div');
 div.className = 'container';
-div.append(todoList(defaultList));
+const domList = todoList(defaultList);
+div.append(domList.getCard());
 document.body.appendChild(div);

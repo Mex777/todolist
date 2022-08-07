@@ -8,7 +8,13 @@
   margin: 1rem;
 }
 
-.card-header {
+/* .card-header { */
+/* display: flex; */
+/* justify-content: space-between; */
+/* } */
+
+.item {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }

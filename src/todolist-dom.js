@@ -3,7 +3,7 @@ import {domItem} from './task-dom';
 
 const header = (text) => {
   const div = document.createElement('div');
-  div.className = 'card-header';
+  div.className = 'card-header item';
 
   const title = document.createElement('h1');
   title.innerText = text;
@@ -36,7 +36,17 @@ const todoList = (list) => {
   }
   card.appendChild(taskListDiv);
 
-  return card;
+  const addItem = (item) => {
+    taskListDiv.appendChild(domItem(item));
+  };
+
+  const removeItem = (item) => {
+    taskListDiv.removeChild(item);
+  };
+
+  const getCard = () => card;
+
+  return {addItem, removeItem, getCard};
 };
 
 export {todoList};
