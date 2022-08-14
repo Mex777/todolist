@@ -1,4 +1,6 @@
-const domItem = (item) => {
+import controller from './controller';
+
+const domItem = (list, item) => {
   const task = document.createElement('li');
   task.className = 'list-group-item item';
 
@@ -20,6 +22,10 @@ const domItem = (item) => {
   icon.className = 'bi bi-trash3-fill';
   icon.style.color = 'white';
   deleteButton.append(icon);
+
+  deleteButton.addEventListener('click', () => {
+    controller(list).delItem(item);
+  });
 
   task.appendChild(textContent);
   task.appendChild(deleteButton);

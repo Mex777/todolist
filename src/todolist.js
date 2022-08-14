@@ -1,4 +1,3 @@
-
 const task = (name, desc, state) => {
   let title = name;
   let description = desc;
@@ -36,10 +35,10 @@ const toDoList = (name) => {
   };
 
   const deleteItem = (item) => {
-    for (let i = 0; i < items.length(); ++i) {
-      if (items[i] === item) {
-        items = items.splice(i, 1);
-        break;
+    for (let i = 0; i < tasks.length; ++i) {
+      if (tasks[i] === item) {
+        tasks.splice(i, 1);
+        return;
       }
     }
   };
