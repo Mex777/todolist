@@ -4,7 +4,6 @@ import './todolist.css';
 import {task, toDoList} from './todolist';
 import {domList} from './todolist-dom';
 
-
 const defaultList = toDoList('Default');
 const brushTeeth = task(
     'Brush teeth',
@@ -21,6 +20,10 @@ defaultList.addItem(ite2);
 
 const div = document.createElement('div');
 div.className = 'container';
+div.id = 'todolist';
 const listDiv = domList(defaultList);
+
+
 div.append(listDiv);
+
 document.body.appendChild(div);
