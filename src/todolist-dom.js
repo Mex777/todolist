@@ -33,7 +33,12 @@ const domList = (list) => {
   card.appendChild(taskListDiv);
 
   button.addEventListener('click', () => {
+    // checking if there was already an input box on the screen
+    if (document.getElementById('input') !== null) {
+      taskListDiv.removeChild(document.getElementById('input'));
+    }
     const input = document.createElement('ul');
+    input.id = 'input';
     input.className = 'list-group-item item';
 
     const form = document.createElement('form');
@@ -52,10 +57,12 @@ const domList = (list) => {
     descriptionDiv.className = 'form-group camp';
     const descriptionLabel = document.createElement('label');
     descriptionLabel.innerText = 'Description';
-    const descriptionInput = document.createElement('input');
+    const descriptionInput = document.createElement('textarea');
     descriptionInput.className = 'form-control';
     descriptionDiv.append(descriptionLabel, descriptionInput);
 
+    const buttons = document.createElement('div');
+    buttons.className = 'item';
     const addTask = document.createElement('button');
     addTask.className = 'btn btn-primary';
     addTask.innerText = 'Add';
@@ -82,7 +89,8 @@ const domList = (list) => {
       taskListDiv.removeChild(input);
     });
 
-    form.append(nameDiv, descriptionDiv, addTask, cancel);
+    buttons.append(addTask, cancel);
+    form.append(nameDiv, descriptionDiv, buttons);
     input.append(form);
     taskListDiv.appendChild(input);
   });
