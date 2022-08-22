@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './todolist.css';
-import {Task, toDoList} from './todolist';
+import {toDoList} from './todolist';
 import {domList} from './todolist-dom';
 
 const parseList = (name) => {
@@ -19,16 +19,20 @@ const parseList = (name) => {
 
 const listsInJSON = localStorage.getItem('lists');
 const lists = JSON.parse(listsInJSON);
-const defaultList = parseList(lists[0]);
+
+
+// const lists = [];
+// const inJSON = JSON.stringify(lists);
+// localStorage['lists'] = inJSON;
 
 const div = document.createElement('div');
 div.className = 'container';
 div.id = 'todolist';
-// const todo = document.createElement('div');
-// todo.id = 'todolist';
-const listDiv = domList(defaultList);
-// todo.append(listDiv);
-div.append(listDiv);
+if (lists.length) {
+  const defaultList = parseList(lists[0]);
+  const listDiv = domList(defaultList);
+  div.append(listDiv);
+}
 
 const form = document.createElement('form');
 
@@ -46,14 +50,18 @@ form.append(inputDiv, addButton);
 
 const addToDoList = (name) => {
   const item = document.createElement('li');
+  item.id = name;
   item.innerText = name;
   item.addEventListener('click', () => {
     const currList = parseList(name);
-    div.removeChild(div.lastChild);
+    if (div.hasChildNodes()) {
+      div.removeChild(div.lastChild);
+    }
     div.appendChild(domList(currList));
   });
   listOfTODOS.append(item);
 };
+
 const listOfTODOS = document.createElement('ul');
 for (let i = 0; i < lists.length; ++i) {
   addToDoList(lists[i]);
@@ -69,14 +77,30 @@ addButton.addEventListener('click', () => {
   localStorage['lists'] = JSON.stringify(lists);
 
   const tasks = [];
-  //   tasks.push(new Task('test', 'test', false));
   localStorage[titleInput.value] = JSON.stringify(tasks);
+  titleInput.value = '';
 });
+
+const removeList = (listName) => {
+  // removing it from the list
+  for (let i = 0; i < lists.length; ++i) {
+    if (lists[i] === listName) {
+      lists.splice(i, 1);
+      break;
+    }
+  }
+
+  // removing it from storage
+  localStorage['lists'] = JSON.stringify(lists);
+  localStorage.removeItem(listName);
+
+  // removing it from the screen
+  listOfTODOS.removeChild(document.getElementById(listName));
+  div.removeChild(div.lastChild);
+};
 
 document.body.appendChild(div);
 document.body.appendChild(form);
 document.body.append(listOfTODOS);
 
-// const lists = ['Default'];
-// const toJSON = JSON.stringify(lists);
-// localStorage['lists'] = toJSON;
+export {removeList};

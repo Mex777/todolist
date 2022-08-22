@@ -1,6 +1,7 @@
 import './todolist.css';
 import {Task} from './todolist';
 import {domItem} from './task-dom';
+import {removeList} from './index';
 
 const domList = (list) => {
   const card = document.createElement('div');
@@ -13,6 +14,8 @@ const domList = (list) => {
   title.innerText = list.getTitle();
   div.appendChild(title);
 
+  const buttons = document.createElement('div');
+  buttons.className = 'buttons';
   // add tasks button
   const button = document.createElement('button');
   button.className = 'btn btn-primary';
@@ -20,7 +23,17 @@ const domList = (list) => {
   buttonContent.textContent = '+';
   button.appendChild(buttonContent);
 
-  div.appendChild(button);
+  const delButton = document.createElement('button');
+  delButton.className = 'btn btn-danger';
+  const delButtonContent = document.createElement('h2');
+  delButtonContent.textContent = 'DELETE';
+  delButton.appendChild(delButtonContent);
+  delButton.addEventListener('click', () => {
+    removeList(list.getTitle());
+  });
+
+  buttons.append(delButton, button);
+  div.append(buttons);
   card.appendChild(div);
 
   const taskList = list.getTasks();
