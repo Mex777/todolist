@@ -44,16 +44,19 @@ addButton.type = 'button';
 
 form.append(inputDiv, addButton);
 
-const listOfTODOS = document.createElement('ul');
-for (let i = 0; i < lists.length; ++i) {
+const addToDoList = (name) => {
   const item = document.createElement('li');
-  item.innerText = lists[i];
+  item.innerText = name;
   item.addEventListener('click', () => {
-    const currList = parseList(lists[i]);
+    const currList = parseList(name);
     div.removeChild(div.lastChild);
     div.appendChild(domList(currList));
   });
   listOfTODOS.append(item);
+};
+const listOfTODOS = document.createElement('ul');
+for (let i = 0; i < lists.length; ++i) {
+  addToDoList(lists[i]);
 }
 
 addButton.addEventListener('click', () => {
@@ -61,7 +64,7 @@ addButton.addEventListener('click', () => {
     console.log('inv');
     return;
   }
-  listOfTODOS.append(titleInput.value);
+  addToDoList(titleInput.value);
   lists.push(titleInput.value);
   localStorage['lists'] = JSON.stringify(lists);
 
