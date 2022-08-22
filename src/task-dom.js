@@ -7,11 +7,11 @@ const domItem = (list, item) => {
   const textContent = document.createElement('div');
 
   const taskTitle = document.createElement('h4');
-  taskTitle.innerText = item.getTitle();
+  taskTitle.innerText = item.name;
   textContent.appendChild(taskTitle);
 
   const description = document.createElement('p');
-  description.innerText = item.getDescription();
+  description.innerText = item.desc;
   textContent.appendChild(description);
 
   const deleteButton = document.createElement('button');

@@ -1,30 +1,14 @@
-const task = (name, desc, state) => {
-  let title = name;
-  let description = desc;
-  let priority = state;
-
-  const setTitle = (name) => {
-    title = name;
-  };
-
-  const setDescription = (desc) => {
-    description = desc;
-  };
-
-  const setPriority = (state) => {
-    priority = state;
-  };
-
-  const getTitle = () => title;
-
-  const getDescription = () => description;
-
-  const getPriority = () => priority;
-
-  return {setTitle, setDescription, setPriority,
-    getTitle, getDescription, getPriority};
-};
-
+/**
+ * the task object
+ * @param {*} name
+ * @param {*} desc
+ * @param {*} priority
+ */
+function Task(name, desc, priority) {
+  this.name = name;
+  this.desc = desc;
+  this.priority = priority;
+}
 //  The task list class
 const toDoList = (name) => {
   const title = name;
@@ -50,4 +34,4 @@ const toDoList = (name) => {
   return {addItem, deleteItem, getTitle, getTasks};
 };
 
-export {task, toDoList};
+export {Task, toDoList};

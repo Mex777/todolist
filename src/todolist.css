@@ -3,15 +3,9 @@
 }
 
 .card {
-  /* width: 30%; */
   box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.487);
   margin: 1rem;
 }
-
-/* .card-header { */
-/* display: flex; */
-/* justify-content: space-between; */
-/* } */
 
 .item {
   display: flex;

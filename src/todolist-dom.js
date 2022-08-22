@@ -1,5 +1,5 @@
 import './todolist.css';
-import {task} from './todolist';
+import {Task} from './todolist';
 import {domItem} from './task-dom';
 
 const domList = (list) => {
@@ -74,7 +74,7 @@ const domList = (list) => {
         return;
       }
 
-      const item = task(nameInput.value, descriptionInput.value, false);
+      const item = new Task(nameInput.value, descriptionInput.value, false);
       list.addItem(item);
       const itemDiv = domItem(list, item);
       taskListDiv.append(itemDiv);

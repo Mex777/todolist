@@ -1,18 +1,18 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './todolist.css';
-import {task, toDoList} from './todolist';
+import {Task, toDoList} from './todolist';
 import {domList} from './todolist-dom';
 
 const defaultList = toDoList('Default');
-const brushTeeth = task(
+const brushTeeth = new Task(
     'Brush teeth',
     'I have to brush my teeth before bed', false,
 );
 
-const item = task('Eat', 'order food and eat', true);
+const item = new Task('Eat', 'order food and eat', true);
 
-const ite2 = task('test', 'testst', true);
+const ite2 = new Task('test', 'testst', true);
 
 defaultList.addItem(brushTeeth);
 defaultList.addItem(item);
