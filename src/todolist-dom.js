@@ -79,6 +79,11 @@ const domList = (list) => {
       const itemDiv = domItem(list, item);
       taskListDiv.append(itemDiv);
       taskListDiv.removeChild(input);
+
+      // updating the storage
+      localStorage.removeItem(list.getTitle());
+      const tasksInJSON = JSON.stringify(list.getTasks());
+      localStorage[list.getTitle()] = tasksInJSON;
     });
 
     const cancel = document.createElement('button');

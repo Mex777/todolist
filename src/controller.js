@@ -14,6 +14,11 @@ const controller = (list) => {
     const div = document.getElementById('todolist');
     div.removeChild(div.lastChild);
     div.appendChild(domList(list));
+
+    // updating the storage
+    localStorage.removeItem(list.getTitle());
+    const tasksInJSON = JSON.stringify(list.getTasks());
+    localStorage[list.getTitle()] = tasksInJSON;
   };
 
   return {addItem, delItem};
