@@ -19,7 +19,7 @@ const parseList = (name) => {
 
 const header = document.createElement('div');
 header.className = 'header';
-header.innerHTML = '<h1>MEX\'s to do';
+header.innerHTML = '<h1>MEX\'s TO-DOs';
 const listsInJSON = localStorage.getItem('lists');
 const lists = JSON.parse(listsInJSON);
 

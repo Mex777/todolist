@@ -8,7 +8,7 @@ const domList = (list) => {
   card.className = 'card todolist';
 
   const div = document.createElement('div');
-  div.className = 'card-header item';
+  div.className = 'card-header item header';
 
   const title = document.createElement('h1');
   title.innerText = list.getTitle();
@@ -18,7 +18,7 @@ const domList = (list) => {
   buttons.className = 'buttons';
   // add tasks button
   const button = document.createElement('button');
-  button.className = 'btn btn-primary';
+  button.className = 'btn btn-outline-light';
   const buttonContent = document.createElement('h2');
   buttonContent.textContent = '+';
   button.appendChild(buttonContent);
