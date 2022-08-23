@@ -23,19 +23,18 @@ header.innerHTML = '<h1>MEX\'s to do';
 const listsInJSON = localStorage.getItem('lists');
 const lists = JSON.parse(listsInJSON);
 
-
-// const lists = [];
-// const inJSON = JSON.stringify(lists);
-// localStorage['lists'] = inJSON;
-
 const div = document.createElement('div');
 div.className = 'container todo';
 div.id = 'todolist';
-if (lists.length) {
+if (listsInJSON != null && lists.length) {
   const defaultList = parseList(lists[0]);
   const listDiv = domList(defaultList);
   // listDiv.className = 'tlist';
   div.append(listDiv);
+} else {
+  const lists = [];
+  const inJSON = JSON.stringify(lists);
+  localStorage['lists'] = inJSON;
 }
 
 const form = document.createElement('form');
@@ -121,5 +120,6 @@ document.body.append(header);
 document.body.append(sideBar);
 document.body.appendChild(div);
 // document.body.appendChild(form);
+
 
 export {removeList};
