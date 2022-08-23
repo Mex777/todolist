@@ -1,4 +1,4 @@
-import controller from './controller';
+import {domList} from './todolist-dom';
 
 const domItem = (list, item) => {
   const task = document.createElement('li');
@@ -24,7 +24,16 @@ const domItem = (list, item) => {
   deleteButton.append(icon);
 
   deleteButton.addEventListener('click', () => {
-    controller(list).delItem(item);
+    list.deleteItem(item);
+    // refresh
+    const div = document.getElementById('todolist');
+    div.removeChild(div.lastChild);
+    div.appendChild(domList(list));
+
+    // updating the storage
+    localStorage.removeItem(list.getTitle());
+    const tasksInJSON = JSON.stringify(list.getTasks());
+    localStorage[list.getTitle()] = tasksInJSON;
   });
 
   task.appendChild(textContent);

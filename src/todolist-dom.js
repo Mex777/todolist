@@ -3,6 +3,74 @@ import {Task} from './todolist';
 import {domItem} from './task-dom';
 import {removeList} from './index';
 
+const createButton = (type, content) => {
+  const button = document.createElement('button');
+  button.className = 'btn ' + type;
+  const buttonContent = document.createElement('h2');
+  buttonContent.textContent = content;
+  button.appendChild(buttonContent);
+
+  return button;
+};
+
+const createForm = (list, taskListDiv) => {
+  const form = document.createElement('form');
+
+  const nameDiv = document.createElement('div');
+  nameDiv.className = 'form-group camp';
+  const nameLabel = document.createElement('label');
+  nameLabel.innerText = 'Name';
+  const nameInput = document.createElement('input');
+  nameInput.className = 'form-control';
+  nameInput.required = true;
+  nameDiv.append(nameLabel, nameInput);
+
+  const descriptionDiv = document.createElement('div');
+  descriptionDiv.className = 'form-group camp';
+  const descriptionLabel = document.createElement('label');
+  descriptionLabel.innerText = 'Description';
+  const descriptionInput = document.createElement('textarea');
+  descriptionInput.className = 'form-control';
+  descriptionDiv.append(descriptionLabel, descriptionInput);
+
+  const buttons = document.createElement('div');
+  buttons.className = 'item';
+  buttons.style.height = '10%';
+  const addTask = document.createElement('button');
+  addTask.className = 'btn btn-primary';
+  addTask.innerText = 'Add';
+  addTask.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (nameInput.value === '') {
+      nameInput.style.border = '1px solid red';
+      return;
+    }
+
+    const item = new Task(nameInput.value, descriptionInput.value, false);
+    list.addItem(item);
+    const itemDiv = domItem(list, item);
+    taskListDiv.append(itemDiv);
+    taskListDiv.removeChild(input);
+
+    // updating the storage
+    localStorage.removeItem(list.getTitle());
+    const tasksInJSON = JSON.stringify(list.getTasks());
+    localStorage[list.getTitle()] = tasksInJSON;
+  });
+
+  const cancel = document.createElement('button');
+  cancel.className = 'btn btn-danger';
+  cancel.innerText = 'X';
+  cancel.type = 'button';
+  cancel.addEventListener('click', () => {
+    taskListDiv.removeChild(input);
+  });
+
+  buttons.append(addTask, cancel);
+  form.append(nameDiv, descriptionDiv, buttons);
+  return form;
+};
+
 const domList = (list) => {
   const card = document.createElement('div');
   card.className = 'card todolist';
@@ -16,18 +84,9 @@ const domList = (list) => {
 
   const buttons = document.createElement('div');
   buttons.className = 'buttons';
-  // add tasks button
-  const button = document.createElement('button');
-  button.className = 'btn btn-outline-light';
-  const buttonContent = document.createElement('h2');
-  buttonContent.textContent = '+';
-  button.appendChild(buttonContent);
+  const button = createButton('btn-outline-light', '+');
 
-  const delButton = document.createElement('button');
-  delButton.className = 'btn btn-danger';
-  const delButtonContent = document.createElement('h2');
-  delButtonContent.textContent = 'DELETE';
-  delButton.appendChild(delButtonContent);
+  const delButton = createButton('btn-danger', 'DELETE');
   delButton.addEventListener('click', () => {
     removeList(list.getTitle());
   });
@@ -54,62 +113,9 @@ const domList = (list) => {
     input.id = 'input';
     input.className = 'list-group-item item';
 
-    const form = document.createElement('form');
-    form.onsubmit = 'return false';
+    const addTaskForm = createForm(list, taskListDiv);
+    input.append(addTaskForm);
 
-    const nameDiv = document.createElement('div');
-    nameDiv.className = 'form-group camp';
-    const nameLabel = document.createElement('label');
-    nameLabel.innerText = 'Name';
-    const nameInput = document.createElement('input');
-    nameInput.className = 'form-control';
-    nameInput.required = true;
-    nameDiv.append(nameLabel, nameInput);
-
-    const descriptionDiv = document.createElement('div');
-    descriptionDiv.className = 'form-group camp';
-    const descriptionLabel = document.createElement('label');
-    descriptionLabel.innerText = 'Description';
-    const descriptionInput = document.createElement('textarea');
-    descriptionInput.className = 'form-control';
-    descriptionDiv.append(descriptionLabel, descriptionInput);
-
-    const buttons = document.createElement('div');
-    buttons.className = 'item';
-    const addTask = document.createElement('button');
-    addTask.className = 'btn btn-primary';
-    addTask.innerText = 'Add';
-    addTask.addEventListener('click', (e) => {
-      e.preventDefault();
-      console.log(nameInput.value);
-      if (nameInput.value === '') {
-        nameInput.style.border = '1px solid red';
-        return;
-      }
-
-      const item = new Task(nameInput.value, descriptionInput.value, false);
-      list.addItem(item);
-      const itemDiv = domItem(list, item);
-      taskListDiv.append(itemDiv);
-      taskListDiv.removeChild(input);
-
-      // updating the storage
-      localStorage.removeItem(list.getTitle());
-      const tasksInJSON = JSON.stringify(list.getTasks());
-      localStorage[list.getTitle()] = tasksInJSON;
-    });
-
-    const cancel = document.createElement('button');
-    cancel.className = 'btn btn-danger';
-    cancel.innerText = 'X';
-    cancel.type = 'button';
-    cancel.addEventListener('click', () => {
-      taskListDiv.removeChild(input);
-    });
-
-    buttons.append(addTask, cancel);
-    form.append(nameDiv, descriptionDiv, buttons);
-    input.append(form);
     taskListDiv.appendChild(input);
   });
 

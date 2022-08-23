@@ -20,12 +20,30 @@ const parseList = (name) => {
 const header = document.createElement('div');
 header.className = 'header';
 header.innerHTML = '<h1>MEX\'s TO-DOs';
-const listsInJSON = localStorage.getItem('lists');
-const lists = JSON.parse(listsInJSON);
 
 const div = document.createElement('div');
 div.className = 'container todo';
 div.id = 'todolist';
+
+const addToDoList = (name) => {
+  const item = document.createElement('li');
+  item.id = name;
+  item.innerText = name;
+  item.className = 'list-group-item lig';
+  item.addEventListener('click', () => {
+    const currList = parseList(name);
+    if (div.hasChildNodes()) {
+      div.removeChild(div.lastChild);
+    }
+    div.appendChild(domList(currList));
+  });
+  listOfTODOS.append(item);
+};
+
+const listsInJSON = localStorage.getItem('lists');
+const lists = JSON.parse(listsInJSON);
+
+
 if (listsInJSON != null && lists.length) {
   const defaultList = parseList(lists[0]);
   const listDiv = domList(defaultList);
@@ -45,7 +63,6 @@ const titleLabel = document.createElement('label');
 titleLabel.innerText = 'Title';
 titleLabel.style.color = 'white';
 titleLabel.style.padding = '.4rem';
-// titleLabel.style.fontSize = '2rem';
 const titleInput = document.createElement('input');
 titleInput.className = 'form-control';
 titleInput.placeholder = 'Add new To-do list';
@@ -58,20 +75,6 @@ addButton.hidden = true;
 
 form.append(inputDiv, addButton);
 
-const addToDoList = (name) => {
-  const item = document.createElement('li');
-  item.id = name;
-  item.innerText = name;
-  item.className = 'list-group-item lig';
-  item.addEventListener('click', () => {
-    const currList = parseList(name);
-    if (div.hasChildNodes()) {
-      div.removeChild(div.lastChild);
-    }
-    div.appendChild(domList(currList));
-  });
-  listOfTODOS.append(item);
-};
 
 const sideBar = document.createElement('div');
 sideBar.className = 'sidebar';
@@ -119,7 +122,5 @@ const removeList = (listName) => {
 document.body.append(header);
 document.body.append(sideBar);
 document.body.appendChild(div);
-// document.body.appendChild(form);
-
 
 export {removeList};

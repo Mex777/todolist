@@ -1,15 +1,5 @@
-* {
-  color: rgb(56, 56, 56);
-  /* border: 1px solid red; */
-  /* background-color: rgb(49, 88, 92); */
-}
-
 html {
   height: 100vh;
-}
-
-body {
-  /* background-color: #d2d79f; */
 }
 
 .card {
