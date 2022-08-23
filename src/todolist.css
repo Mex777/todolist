@@ -1,10 +1,21 @@
 * {
   color: rgb(56, 56, 56);
+  /* border: 1px solid red; */
+  /* background-color: rgb(49, 88, 92); */
+}
+
+html {
+  height: 100vh;
+}
+
+body {
+  /* background-color: #d2d79f; */
 }
 
 .card {
   box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.487);
   margin: 1rem;
+  position: fixed;
 }
 
 .buttons {
@@ -29,4 +40,50 @@ button {
 
 form {
   width: 100%;
+}
+
+.sidebar {
+  background-color: #ff8fb1;
+  grid-area: side;
+}
+
+.todo {
+  display: flex;
+  justify-content: center;
+  grid-area: main;
+}
+
+.todolist {
+  width: 50%;
+}
+
+body {
+  display: grid;
+  background-color: #fce2db;
+  height: 100%;
+  /* grid-template-columns: 1.5fr 7fr; */
+  grid-template:
+    "header header header header header header header header header header header header" 0.1fr
+    "side main main main main main main main main main main main";
+}
+
+.header {
+  background-color: #7a4495;
+  color: white;
+  grid-area: header;
+}
+
+.header h1 {
+  padding: 0.5rem;
+}
+
+.lig {
+  background-color: #ff8fb162;
+  color: white;
+  font-weight: bold;
+  font-size: 2rem;
+  border-color: white;
+  border-right: 0px;
+  border-left: 0px;
+  padding: 0.5rem;
 }

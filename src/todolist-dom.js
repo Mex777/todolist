@@ -5,7 +5,7 @@ import {removeList} from './index';
 
 const domList = (list) => {
   const card = document.createElement('div');
-  card.className = 'card';
+  card.className = 'card todolist';
 
   const div = document.createElement('div');
   div.className = 'card-header item';

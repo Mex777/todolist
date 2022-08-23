@@ -17,6 +17,9 @@ const parseList = (name) => {
   return list;
 };
 
+const header = document.createElement('div');
+header.className = 'header';
+header.innerHTML = '<h1>MEX\'s to do';
 const listsInJSON = localStorage.getItem('lists');
 const lists = JSON.parse(listsInJSON);
 
@@ -26,25 +29,33 @@ const lists = JSON.parse(listsInJSON);
 // localStorage['lists'] = inJSON;
 
 const div = document.createElement('div');
-div.className = 'container';
+div.className = 'container todo';
 div.id = 'todolist';
 if (lists.length) {
   const defaultList = parseList(lists[0]);
   const listDiv = domList(defaultList);
+  // listDiv.className = 'tlist';
   div.append(listDiv);
 }
 
 const form = document.createElement('form');
 
 const inputDiv = document.createElement('div');
+inputDiv.className = 'form-group lig';
 const titleLabel = document.createElement('label');
 titleLabel.innerText = 'Title';
+titleLabel.style.color = 'white';
+titleLabel.style.padding = '.4rem';
+// titleLabel.style.fontSize = '2rem';
 const titleInput = document.createElement('input');
+titleInput.className = 'form-control';
+titleInput.placeholder = 'Add new To-do list';
 inputDiv.append(titleLabel, titleInput);
 
 const addButton = document.createElement('button');
+addButton.className = 'btn btn-primary';
 addButton.innerText = 'ADD';
-addButton.type = 'button';
+addButton.hidden = true;
 
 form.append(inputDiv, addButton);
 
@@ -52,6 +63,7 @@ const addToDoList = (name) => {
   const item = document.createElement('li');
   item.id = name;
   item.innerText = name;
+  item.className = 'list-group-item lig';
   item.addEventListener('click', () => {
     const currList = parseList(name);
     if (div.hasChildNodes()) {
@@ -62,12 +74,18 @@ const addToDoList = (name) => {
   listOfTODOS.append(item);
 };
 
+const sideBar = document.createElement('div');
+sideBar.className = 'sidebar';
 const listOfTODOS = document.createElement('ul');
+listOfTODOS.className = 'list-group';
 for (let i = 0; i < lists.length; ++i) {
   addToDoList(lists[i]);
 }
+sideBar.appendChild(form);
+sideBar.appendChild(listOfTODOS);
 
-addButton.addEventListener('click', () => {
+addButton.addEventListener('click', (e) => {
+  e.preventDefault();
   if (titleInput.value == '' || localStorage[titleInput.value] != null) {
     console.log('inv');
     return;
@@ -99,8 +117,9 @@ const removeList = (listName) => {
   div.removeChild(div.lastChild);
 };
 
+document.body.append(header);
+document.body.append(sideBar);
 document.body.appendChild(div);
-document.body.appendChild(form);
-document.body.append(listOfTODOS);
+// document.body.appendChild(form);
 
 export {removeList};
